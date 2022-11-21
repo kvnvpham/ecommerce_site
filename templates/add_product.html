@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}Add Product{% endblock %}
+
+{% block main %}
+    <section id="product-banner">
+        <div class="container-fluid register-bg banner text-center">
+            <h2 class="title-style">Add Product</h2>
+        </div>
+    </section>
+
+    <section id="product-form">
+        <div class="container-fluid section">
+            <div class="form">
+                {{ ckeditor.load() }}
+                {{ ckeditor.config(name='description') }}
+
+                {{ wtf.quick_form(form, novalidate=True) }}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

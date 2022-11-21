@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}Register{% endblock %}
+
+{% block main %}
+    <section id="login-banner">
+        <div class="container-fluid login-bg banner text-center">
+            <h2 class="title-style">Login</h2>
+        </div>
+    </section>
+
+    <section id="login-form">
+        <div class="container-fluid section">
+            <div class="form">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="flashes">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                {{ wtf.quick_form(form, novalidate=True) }}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

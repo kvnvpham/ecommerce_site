@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Pup Collectables{% endblock %}
+
+{% block main %}
+    <section id="main">
+        <div class="container-fluid main-section text-center">
+            <div>
+                <h1>Pup Collectibles</h1>
+            </div>
+            {% if not current_user.is_authenticated %}
+            <div>
+                <a class="btn btn-light" href="{{ url_for('register') }}">Sign Up</a>
+                <a class="btn btn-light login-btn" href="{{ url_for('login') }}">Login</a>
+            </div>
+            {% else %}
+            <div>
+                <a class="btn btn-light shop-btn" href="{{ url_for('show_products', type_id=1) }}">Shop Now!</a>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container-fluid section text-center">
+            <div>
+                <h2>About Our Store</h2>
+            </div>
+            <div class="description">
+                <img class="about-img" src="{{ url_for('static', filename='images/about.jpg') }}">
+                <p class="about-text">
+                    We are a family that loves the company of dogs, and we wanted to connect with others with a similar
+                    love for dogs by offering themed stickers and posters. We expect to eventually expand our product
+                    line as the business grows, but more importantly, keep a smile on our customers' faces.
+                </p>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

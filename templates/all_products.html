@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if type_id != 1 %}
+        Posters
+    {% else %}
+        Stickers
+    {% endif %}
+{% endblock %}
+
+{% block main %}
+    <section id="all-products">
+        <div class="container-fluid section text-center">
+            <div>
+                {% if type_id != 1 %}
+                <h2>Posters</h2>
+                {% else %}
+                <h2>Stickers</h2>
+                {% endif %}
+            </div>
+            <div class="row">
+                {% for item in products %}
+                <div class="col-lg-4 col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <a href="{{ url_for('get_product', item_id=item.id, user_id=user_id) }}">
+                            <img src="{{ url_for('static', filename=item.image) }}" class="card-img-top">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.name }}</h5>
+                            <a href="{{ url_for('get_product', item_id=item.id, user_id=user_id) }}" class="card-link">
+                                ${{ item.price }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}My Cart{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
+{% block main %}
+
+    <section class="cart">
+        <div class="container-fluid section">
+            <div class="text-center">
+                <h2>My Cart</h2>
+            </div>
+            <div class="row">
+                {% if user_id != 0 and user.cart %}
+                <div class="col-lg-8">
+                    {% for item in user.cart %}
+                    <ul class="list-group list-item">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-3">
+                                    <img class="cart-image" src="{{ url_for('static', filename=item.product.image) }}">
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-3 col-3">
+                                    {{ item.product.name }}
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-3">
+                                    Qty: {{ item.quantity }}
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-3">
+                                   ${{ (item.product.price * item.quantity)|round(2) }}
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <a href="{{ url_for('update_item', item_id=item.product.id, cart_id=item.id, user_id=user.id) }}" >Update</a>
+                                    <a href="{{ url_for('remove_item', item_id=item.product.id, cart_id=item.id, user_id=user.id) }}">Remove</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    {% endfor %}
+                </div>
+
+                {% elif user_id == 0 and session %}
+                <div class="col-lg-8">
+                    {% for item in session %}
+                    <ul class="list-group list-item">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-3">
+                                    <img class="cart-image" src="{{ url_for('static', filename=item.image) }}">
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-3 col-3">
+                                    {{ item.name }}
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-3">
+                                    Qty: {{ item.qty }}
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-3">
+                                   ${{ (item.qty * item.price)|round(2) }}
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <a href="{{ url_for('update_item', item_id=item.id, cart_id=item.qty, user_id=user_id) }}" >Update</a>
+                                    <a href="{{ url_for('remove_item', item_id=item.id, cart_id=item.qty, user_id=user_id) }}">Remove</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    {% endfor %}
+                </div>
+
+                {% else %}
+                <div class="col-lg-8">
+                    <h3>Your Cart is Empty</h3>
+                </div>
+                {% endif %}
+
+                <div class="col-lg-4">
+                    <h2 class="screen">How You'll Pay</h2>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                            <p>Item(s) Total</p>
+                            <p>Shipping</p>
+                            <p>Total</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-6 total-price">
+                            <p>${{ item_total }}</p>
+                            <p>${{ 4.99 }}</p>
+                            <p>${{ (item_total + 4.99)|round(2) }}</p>
+                        </div>
+                        <div>
+                            <a class="btn submit w-100" href="{{ url_for('checkout', user_id=user_id) }}">Proceed to Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
