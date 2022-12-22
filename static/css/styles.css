@@ -29,7 +29,8 @@ h1, h2 {
 
 .main-section {
     background-image: url('../images/bg.jpg');
-    background-size: cover;
+    background-position: center 25%;
+    background-size: 100vmax;
     background-repeat: no-repeat;
     padding: 17% 5%;
 }
@@ -72,6 +73,9 @@ h1 {
 
 .register-bg {
     background-image: url('../images/register.jpg');
+    background-position: center 40%;
+    background-size: 120vmax;
+    background-repeat: no-repeat;
 }
 
 .banner {
@@ -105,6 +109,9 @@ h1 {
 
 .login-bg {
     background-image: url('../images/login.jpg');
+    background-position: center 40%;
+    background-size: 100vmax;
+    background-repeat: no-repeat;
 }
 
 .flashes {
